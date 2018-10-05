@@ -6,47 +6,59 @@ class App extends Component {
             inputVal: '',
             lists: []
         }
+        this.updateList = this.updateList.bind(this);
+        this.checkOccurence = this.checkOccurence.bind(this);
+        this.availableLists = [];
     };
     updateInputValue(evt) {
+        this.checkOccurence(evt.target.value)
         this.setState({
-            inputVal: evt.target.value
+            inputVal: evt.target.value,
+        });
+    }
+    checkOccurence(element) {
+        if (element) {
+            this.availableLists = [];
+            this.state.lists.forEach((list) => {
+                if (list.indexOf(element)>-1) {
+                    this.availableLists.push(list);
+                }
+            })
+        } else {
+            this.availableLists = [];
+        }
+    }
+    updateList(lists) {
+        this.setState({
+            lists: lists
         });
     }
     render() {
-        console.log("Rendering search")
-        // let lists = this.state.lists;
+        let lists = this.state.lists;
         return (
             <div>
-                {/* <div style={{display: "inlineBlock"}}> */}
+                <div style={{display: "inline-block"}}>
                     <input type="text" value={this.state.inputVal} onChange={evt => this.updateInputValue(evt)} />
-                    <Add element={this.state.inputVal} lists={this.state.lists}></Add>
-                {/* </div> */}
-                {/* <List lists={lists}></List> */}
+                    <Add element={this.state.inputVal} lists={lists} onListChange={this.updateList} onAdd={this.checkOccurence}></Add>
+                </div>
+                <List lists={this.availableLists.length > 0 ? this.availableLists : lists} onListChange={this.availableLists.length > 0 ? undefined : this.updateList}></List>
             </div>
         );
     }
 }
 
 class Add extends Component {
-    constructor() {
-        super();
-        this.state = {lists: []}
-    }
     addElementtoList() {
         if (this.props.element) {
-            this.props.lists.push(this.props.element);
-            this.setState({
-                lists: this.props.list
-            })
+            let lists = this.props.lists;
+            lists.push(this.props.element);
+            this.props.onListChange(lists)
+            this.props.onAdd(this.props.element);
         }
     }
     render() {
-        console.log("Rendering add")
         return (
-            <div>
-                <button onClick={evt => this.addElementtoList(evt)}>Add</button>
-                <List lists={this.props.lists}></List>
-            </div>
+            <button onClick={evt => this.addElementtoList(evt)}>Add</button>
         );
     }
 }
@@ -54,11 +66,12 @@ class Add extends Component {
 class List extends Component {
     createList(){
         return this.props.lists.map((list, index)=>
-            <li key={index}>{list} &nbsp;&nbsp;&nbsp;&nbsp; <ListAction index={index} lists={this.props.lists}></ListAction></li>
+            <li key={index}>{list} &nbsp;&nbsp;&nbsp;&nbsp; 
+                <ListAction index={index} lists={this.props.lists} onListChange={this.props.onListChange}></ListAction>
+            </li>
         );
     }
     render() {
-        console.log("Rendering list")
         return (
             <ul>
                 {this.createList()}
@@ -69,8 +82,9 @@ class List extends Component {
 
 class ListAction extends Component {
     deleteList() {
-        window.a = this
-        this.props.lists.splice(this.props.index, 1);
+        let lists = this.props.lists;
+        lists.splice(this.props.index, 1);
+        this.props.onListChange && this.props.onListChange(lists)
     }
     shuffleList() {
 
@@ -82,15 +96,6 @@ class ListAction extends Component {
                 <i className="fas fa-random fa-xs" onClick={evt => this.shuffleList(evt)}></i>
             </span>
         );
-    }
-}
-
-class Shuffle extends Component {
-    constructor() {
-        super();
-    };
-    render() {
-        <button>Shuffle</button>
     }
 }
 
