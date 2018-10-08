@@ -90,7 +90,9 @@ class List extends Component {
     drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
-        ev.target.parentElement.appendChild(document.getElementById(data));
+        let parentElem = document.getElementsByClassName('list')[0];
+        parentElem.insertBefore(document.getElementById(data), parentElem.children[Number(ev.target.id) + 1]);
+        // ev.target.parentElement.appendChild(document.getElementById(data));
     }
     createList(){
         return this.props.lists.map((list, index)=>
