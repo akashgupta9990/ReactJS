@@ -4,10 +4,11 @@ class App extends Component {
         super();
         this.state = { 
             inputVal: '',
-            lists: []
+            lists: ['abcd', 'efgh', 'ijkl', 'mnop']
         }
         this.updateList = this.updateList.bind(this);
         this.checkOccurence = this.checkOccurence.bind(this);
+        this.resetInput = this.resetInput.bind(this);
         this.availableLists = [];
     };
     updateInputValue(evt) {
@@ -33,13 +34,22 @@ class App extends Component {
             lists: lists
         });
     }
+    resetInput() {
+        this.setState({
+            inputVal: ""
+        });
+    }
     render() {
         let lists = this.state.lists;
         return (
-            <div>
-                <div style={{display: "inline-block"}}>
-                    <input type="text" value={this.state.inputVal} onChange={evt => this.updateInputValue(evt)} />
-                    <Add element={this.state.inputVal} lists={lists} onListChange={this.updateList} onAdd={this.checkOccurence}></Add>
+            <div id="body">
+                <div style={{display: "inline-flex"}} className="container">
+                    <div className="inputField">
+                        <input type="text" value={this.state.inputVal} onChange={evt => this.updateInputValue(evt)} />
+                    </div>
+                    <div className="addButton">
+                        <Add element={this.state.inputVal} lists={lists} onAddClick={this.resetInput} onListChange={this.updateList}></Add>
+                    </div>
                 </div>
                 <List lists={this.availableLists.length > 0 ? this.availableLists : lists} onListChange={this.availableLists.length > 0 ? undefined : this.updateList}></List>
             </div>
@@ -53,7 +63,7 @@ class Add extends Component {
             let lists = this.props.lists;
             lists.push(this.props.element);
             this.props.onListChange(lists)
-            this.props.onAdd(this.props.element);
+            this.props.onAddClick();
         }
     }
     render() {
@@ -64,18 +74,38 @@ class Add extends Component {
 }
 
 class List extends Component {
+    constructor() {
+        super();
+        this.drag = this.drag.bind(this);
+        this.drop = this.drop.bind(this);
+        this.allowDrop = this.allowDrop.bind(this);
+    }
+    allowDrop(ev) {
+        ev.preventDefault();
+    }
+    drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    
+    drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.parentElement.appendChild(document.getElementById(data));
+    }
     createList(){
         return this.props.lists.map((list, index)=>
-            <li key={index}>{list} &nbsp;&nbsp;&nbsp;&nbsp; 
+            <div className="listView" key={index} draggable="true" onDragStart={this.drag} onDrop={this.drop} onDragOver={this.allowDrop} id={index}>
+                <p className="listName">{list}
+                </p>
                 <ListAction index={index} lists={this.props.lists} onListChange={this.props.onListChange}></ListAction>
-            </li>
+            </div>
         );
     }
     render() {
         return (
-            <ul>
+            <div className="list">
                 {this.createList()}
-            </ul>
+            </div>
         );
     }
 }
@@ -91,9 +121,9 @@ class ListAction extends Component {
     }
     render() {
         return (
-            <span>
-                <i className="fas fa-trash-alt fa-xs" onClick={evt => this.deleteList(evt)}></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i className="fas fa-random fa-xs" onClick={evt => this.shuffleList(evt)}></i>
+            <span className="listAction">
+                <i className="fas fa-trash-alt fa-xs listDelete" onClick={evt => this.deleteList(evt)}></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i className="fas fa-random fa-xs listShuffle" onClick={evt => this.shuffleList(evt)}></i>
             </span>
         );
     }

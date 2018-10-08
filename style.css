@@ -1,0 +1,38 @@
+#body {
+    width: 70%;
+    position: relative;
+    left: 15%;
+    background-color: #e2e2e2;
+}
+
+.addButton {
+    right: 0%;
+    position: absolute;
+}
+
+.inputField, .addButton {
+    padding: 7px 7px;
+}
+
+.inputField input {
+    border-radius: 10px;
+    border: 1px solid #d6cfcf;
+    height: 20px;
+}
+
+.list {
+    padding: 1px 10px;
+}
+
+.listAction {
+    right: 8px;
+    position: absolute;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.listView {
+    display: flex;
+}
