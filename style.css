@@ -1,7 +1,6 @@
 #body {
-    width: 70%;
+    width: 20%;
     position: relative;
-    left: 15%;
     background-color: #e2e2e2;
 }
 
@@ -20,10 +19,6 @@
     height: 20px;
 }
 
-.list {
-    padding: 1px 10px;
-}
-
 .listAction {
     right: 8px;
     position: absolute;
@@ -35,4 +30,6 @@
 
 .listView {
     display: flex;
+    border: 1px solid #e4d9d9;
+    padding: 0px 7px;
 }

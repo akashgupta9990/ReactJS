@@ -4,7 +4,7 @@ class App extends Component {
         super();
         this.state = { 
             inputVal: '',
-            lists: ['abcd', 'efgh', 'ijkl', 'mnop']
+            lists: ['1', '2', '3', '4']
         }
         this.updateList = this.updateList.bind(this);
         this.checkOccurence = this.checkOccurence.bind(this);
@@ -91,8 +91,14 @@ class List extends Component {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let parentElem = document.getElementsByClassName('list')[0];
-        parentElem.insertBefore(document.getElementById(data), parentElem.children[Number(ev.target.id) + 1]);
-        // ev.target.parentElement.appendChild(document.getElementById(data));
+        let targetElemIndex = Array.prototype.indexOf.call(parentElem.children, ev.target);
+        let selectedElemIndex = Array.prototype.indexOf.call(parentElem.children, document.getElementById(data));
+        if (selectedElemIndex > targetElemIndex) {
+            targetElemIndex = targetElemIndex
+        } else {
+            targetElemIndex = targetElemIndex +1
+        }
+        parentElem.insertBefore(document.getElementById(data), parentElem.children[targetElemIndex]);
     }
     createList(){
         return this.props.lists.map((list, index)=>
@@ -125,7 +131,7 @@ class ListAction extends Component {
         return (
             <span className="listAction">
                 <i className="fas fa-trash-alt fa-xs listDelete" onClick={evt => this.deleteList(evt)}></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i className="fas fa-random fa-xs listShuffle" onClick={evt => this.shuffleList(evt)}></i>
+                {/* <i className="fas fa-random fa-xs listShuffle" onClick={evt => this.shuffleList(evt)}></i> */}
             </span>
         );
     }
