@@ -13,9 +13,9 @@ class Filter extends Component {
     };
     render() {
         return (
-            <div className="itemFilter">
-                <h3>Filters</h3>
-                <div className="filterList">
+            <div className="filters">
+                <div className="filter-body">
+                    <h3>Filters</h3>
                     <div>
                         <label>Price</label>
                         <Checkbox options={this.state.price} onFilter={this.props.onFilter} products={this.props.products}></Checkbox>
