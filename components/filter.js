@@ -18,7 +18,7 @@ class Filter extends Component {
                 <div className="filterList">
                     <div>
                         <label>Price</label>
-                        <Checkbox options={this.state.price}></Checkbox>
+                        <Checkbox options={this.state.price}  onFilter={this.props.onFilter}></Checkbox>
                     </div>
                     <div className="">
                         <label>Brand</label>
