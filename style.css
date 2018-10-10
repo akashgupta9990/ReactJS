@@ -54,9 +54,74 @@
 
 #container {
     width: 1000px;
-    margin: 10px auto;
+    margin: 0px auto;
 }
 
 .products {
     width: 100%;
+}
+/* Header Component */
+
+.header {
+    background: #4c5099;
+    height: 50px;
+}
+
+.header .search input {
+    background-color: #5e62a2;
+    border: none;
+    width: calc(100% - 32px);
+    height: inherit;
+    color: white;
+    position: absolute;
+    right: 0;
+}
+.search input[type="text"]:focus{
+    outline: none;
+    box-shadow: none;
+    border:none;
+}
+
+::placeholder {
+    color: #8a8fc4;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #8a8fc4;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #8a8fc4;
+}
+
+.search {
+    width: 450px;
+    height: 30px;
+    margin: 0 auto;
+    top: 20%;
+    position: relative;
+}
+
+.header .search button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 3px 0 0 3px;
+    background-color: #5e62a2;
+    background-position: center;
+    cursor: pointer;
+    background-image: url(https://assets.mspcdn.net/fl_lossy/msp-ui/icons/search-icon.png);
+    background-repeat: no-repeat;
+    background-size: 14px auto;
+}
+
+/* End of Header Component */
+
+body {
+    margin: 0;
 }

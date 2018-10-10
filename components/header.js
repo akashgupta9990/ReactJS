@@ -15,8 +15,10 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <input type="text" value={this.state.searchText} onChange={evt => this.updateState(evt)}></input>
-                <button onClick={evt => this.props.onFilter(this.state.searchText)}>Search</button>
+                <div className="search">
+                    <button onClick={evt => this.props.onSearch(this.state.searchText)}></button>
+                    <input type="text" placeholder="Search..." value={this.state.searchText} onChange={evt => this.updateState(evt)}></input>
+                </div>
             </div>
         );
     }

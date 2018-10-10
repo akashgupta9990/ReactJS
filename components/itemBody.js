@@ -8,7 +8,7 @@ class Itembody extends Component {
     getProductDetail() {
         let products = this.props.products;
         return products.map((data, index)=>
-            <div key={index} className="productDetail">
+            <div key={index}>
                 <div className="productImage">
                     <img src=""></img>
                 </div>
@@ -37,7 +37,7 @@ class Itembody extends Component {
         return (
             <div className="products">
                 <Filter products={this.props.products} onFilter={this.props.onFilter}></Filter>
-                <div>
+                <div className="productDetail">
                     {this.getProductDetail()}
                 </div>
             </div>

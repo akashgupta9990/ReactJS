@@ -18,19 +18,19 @@ class Filter extends Component {
                 <div className="filterList">
                     <div>
                         <label>Price</label>
-                        <Checkbox options={this.state.price}  onFilter={this.props.onFilter}></Checkbox>
+                        <Checkbox options={this.state.price} onFilter={this.props.onFilter} products={this.props.products}></Checkbox>
                     </div>
                     <div className="">
                         <label>Brand</label>
-                        <Select options={this.state.brand}></Select>
+                        <Select options={this.state.brand} onFilter={this.props.onFilter} products={this.props.products}></Select>
                     </div>
                     <div className="">
                         <label>Screen Size</label>
-                        <Checkbox options={this.state.screensize}></Checkbox>
+                        <Checkbox options={this.state.screensize} onFilter={this.props.onFilter} products={this.props.products}></Checkbox>
                     </div>
                     <div>
                         <label>OS</label>
-                        <Checkbox options={this.state.os}></Checkbox>
+                        <Checkbox options={this.state.os} onFilter={this.props.onFilter} products={this.props.products}></Checkbox>
                     </div>
                 </div>
             </div>

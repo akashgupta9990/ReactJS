@@ -12,7 +12,10 @@ class App extends Component {
             products: [
                 {
                     "summary": {
-                        "model": "Samsung Exynos 7 Octa 7885",
+                        "model": "Samsung Galaxy A7 (2018)",
+                        "price": "23990",
+                        "brand": "Samsung",
+                        "processor": "Samsung Exynos 7 Octa 7885",
                         "display": "6.0 inches (15.24 cm)",
                         "storage": "64GB",
                         "camera": "Triple (24MP + 8MP + 5MP)",
@@ -90,15 +93,18 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "Qualcomm SDM450 Snapdragon 450",
+                        "model": "Samsung Galaxy J8",
+                        "price": "16490",
+                        "brand": "Samsung",
+                        "processor": "Qualcomm SDM450 Snapdragon 450",
                         "display": "6.0 inches (15.24 cm)",
                         "storage": "64GB",
-                        "camera": "Dual (16MP + 5MP )",
+                        "camera": "Dual (16MP + 5MP)",
                         "battery": "3500 mAh",
                         "ram": "4GB"
                     },
                     "display": {
-                        "resolution": "720x1480 pixels",
+                        "resolution": "720 x 1480 pixels",
                         "aspect_ratio": "18.5:9",
                         "display_type": "Super AMOLED",
                         "screen_size": "6.0 inches (15.24 cm)",
@@ -124,7 +130,7 @@ class App extends Component {
                     },
                     "camera": {
                         "selfie": "16MP",
-                        "rear": "Dual (16MP + 5MP )",
+                        "rear": "Dual (16MP + 5MP)",
                         "rear_camera_features": "LED flash, panorama, HDR",
                         "selfie_camera_features": "LED flash",
                         "physical_aperture": "Rear (f/1.7) + (f/1.9), Front (f/1.9)",
@@ -169,7 +175,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "Qualcomm Snapdragon 450",
+                        "model": "Oppo A5",
+                        "price": "13491",
+                        "brand": "Oppo",
+                        "processor": "Qualcomm Snapdragon 450",
                         "display": "6.2 inches",
                         "storage": "32GB",
                         "camera_dDual": "(13MP + 2MP)",
@@ -249,7 +258,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "Mediatek Helio A22",
+                        "model": "Xiaomi Redmi 6A",
+                        "price": "5999",
+                        "brand": "Xiaomi",
+                        "processor": "Mediatek Helio A22",
                         "display": "5.45 inches (13.84 cm)",
                         "storage": "16GB",
                         "camera": "13MP",
@@ -328,7 +340,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "Qualcomm SDM636 Snapdragon 636",
+                        "model": "Xiaomi Redmi Note 5 Pro",
+                        "price": "13368",
+                        "brand": "Xiaomi",
+                        "processor": "Qualcomm SDM636 Snapdragon 636",
                         "display": "5.8 inches (14.73 cm)",
                         "storage": "64GB",
                         "camera_dual": "(16MP + 5MP)",
@@ -408,7 +423,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "performance": "Apple A10 Fusion",
+                        "model": "Apple iPhone 7",
+                        "price": "33990",
+                        "processor": "Apple A10 Fusion",
+                        "brand": "Apple",
                         "display": "4.7 inches (11.94 cm)",
                         "storage": "32GB",
                         "camera": "12MP",
@@ -490,7 +508,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "MediaTek Helio P60",
+                        "model": "Oppo F9",
+                        "price": "15992",
+                        "processor": "MediaTek Helio P60",
+                        "brand": "Oppo",
                         "display": "6.3 inches",
                         "storage": "64GB",
                         "camera_dual": "(16MP + 2MP)",
@@ -570,7 +591,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "Qualcomm Snapdragon 660",
+                        "model": "Vivo V11 Pro",
+                        "price": "23149",
+                        "processor": "Qualcomm Snapdragon 660",
+                        "brand": "Vivo",
                         "display": "6.2 inches (15.75 cm)",
                         "storage": "64GB",
                         "camera_dual": "(16MP + 5MP)",
@@ -649,7 +673,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "performance": "Qualcomm Snapdragon 660",
+                        "model": "Motorola One Power",
+                        "processor": "Qualcomm Snapdragon 660",
+                        "price": "15999",
+                        "brand": "Motorola",
                         "display": "6.41 inches",
                         "storage": "64GB",
                         "camera_dual": "(12MP + 5MP)",
@@ -730,7 +757,10 @@ class App extends Component {
                 },
                 {
                     "summary": {
-                        "model": "Qualcomm Snapdragon 845",
+                        "model": "Xiaomi Poco F1",
+                        "price": "20999",
+                        "brand": "Xiaomi",
+                        "processor": "Qualcomm Snapdragon 845",
                         "display": "6.28 inches (15.95 cm)",
                         "storage": "64GB",
                         "camera": "Dual (16MP + 20MP (16MP effective) )",
@@ -856,8 +886,9 @@ class App extends Component {
         let products = this.state.filterProductList.length > 0 ? this.state.filterProductList : this.state.products;
         return (
             <div id="container">
-                <Header onFilter={this.filterWithSearch}></Header>
-                <Itembody products={products} onFilter={this.filterWithSearch}></Itembody>
+            {/* <div>Showing {products.length}</div> */}
+                <Header onSearch={this.filterWithSearch}></Header>
+                <Itembody products={products} onFilter={this.updateProductList}></Itembody>
             </div>
         );
     }
