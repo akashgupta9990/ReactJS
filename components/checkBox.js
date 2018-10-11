@@ -4,38 +4,9 @@ class Checkbox extends Component {
         super();
         this.generateOption = this.generateOption.bind(this);
         this.filterResult = this.filterResult.bind(this);
-        this.state = {
-            checked: false
-        }
     };
-    filterResult(evt, data) {
-        this.setState({
-            checked: !this.state.checked,
-        });
-        if (this.state.checked) {
-            let value = parseFloat(data.value);
-            let products = this.props.products;
-            let type = this.props.options[0].name;
-            let newList = [];
-            switch (type) {
-                case 'price':
-                    products.forEach(p => {
-                        if (p.summary.price < value) {
-
-                        }
-                    })
-                    break;
-                case 'screen':
-                    products.forEach(p => {
-                        let displaySize = parseFloat(p.display.screen_size);
-                        if (displaySize <= parseFloat(value) && displaySize > (value-0.5)) {
-                            newList.push(p);
-                        }
-                    })
-                    break;
-            }
-            this.props.onFilter(newList);
-        }
+    filterResult(evt, data){
+        this.props.updateFilters(data, evt.target.checked);
     }
     generateOption() {
         let options = this.props.options;

@@ -7,7 +7,7 @@ class App extends Component {
         this.availableLists = []; // global variable to store filtered products
         this.updateProductList = this.updateProductList.bind(this);
         this.filterWithSearch = this.filterWithSearch.bind(this);
-        this.updateState = this.updateState.bind(this);
+        this.updateSearchText = this.updateSearchText.bind(this);
         this.state = {
             products: [
                 {
@@ -849,9 +849,20 @@ class App extends Component {
                     "imagePath": "../assets/xiaomi_poco_f1.jpg"
                 }
             ],
-            filterProductList : []  // state variable to store fltered product so update in jsx will occur
+            filterProductList : [],  // state variable to store fltered product so update in jsx will occur
+            searchText: "" // Search field model value
         }
     };
+    // Update the state value of search model
+    // show all product list if search field is empty
+    updateSearchText(evt) {
+        this.setState({
+            searchText: evt.target.value,
+        });
+        if (!evt.target.value) {
+            this.filterWithSearch();
+        }
+    }
     // update the product list to show filtered list
     // fallback to original product list if filtered list is empty
     updateProductList(products) {
@@ -900,18 +911,12 @@ class App extends Component {
             }
         })
     }
-    // update the search string in component state
-    updateState(evt) {
-        this.setState({
-            searchText: evt.target.value,
-        });
-    }
     render() {
         let products = this.state.filterProductList.length > 0 ? this.state.filterProductList : this.state.products;
         return (
             <div id="container">
-                <Header onSearch={this.filterWithSearch}></Header>
-                <Itembody products={products} onFilter={this.updateProductList}></Itembody>
+                <Header onSearch={this.filterWithSearch} updateSearchText={this.updateSearchText} searchText={this.state.searchText}></Header>
+                <Itembody products={products} allProducts={this.state.products} onFilter={this.updateProductList}></Itembody>
             </div>
         );
     }
