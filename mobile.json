@@ -78,7 +78,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/samsung_galaxy_a7_(2018).jpg"
     },
     {
         "summary": {
@@ -160,7 +161,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/samsung_galaxy_j8.jpg"
     },
     {
         "summary": {
@@ -243,7 +245,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/oppo_a5.jpg"
     },
     {
         "summary": {
@@ -325,7 +328,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/xiaomi_redmi_6A.jpg"
     },
     {
         "summary": {
@@ -408,7 +412,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/xiaomi_redmi_note_5_pro.jpg"
     },
     {
         "summary": {
@@ -493,7 +498,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "No"
-        }
+        },
+        "imagePath": "../assets/apple_iPhone_7.jpg"
     },
     {
         "summary": {
@@ -576,7 +582,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/oppo_f9.jpg"
     },
     {
         "summary": {
@@ -658,7 +665,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/vivo_v11_pro.jpg"
     },
     {
         "summary": {
@@ -742,7 +750,8 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/motorola_one_power.jpg"
     },
     {
         "summary": {
@@ -825,6 +834,7 @@
         "sound": {
             "speaker": "Yes",
             "audio_jack": "3.5mm"
-        }
+        },
+        "imagePath": "../assets/xiaomi_poco_f1.jpg"
     }
 ]

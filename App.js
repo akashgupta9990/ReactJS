@@ -4,7 +4,7 @@ import Itembody from './components/itemBody';
 class App extends Component {
     constructor() {
         super();
-        this.availableLists = [];
+        this.availableLists = []; // global variable to store filtered products
         this.updateProductList = this.updateProductList.bind(this);
         this.filterWithSearch = this.filterWithSearch.bind(this);
         this.updateState = this.updateState.bind(this);
@@ -12,11 +12,11 @@ class App extends Component {
             products: [
                 {
                     "summary": {
-                        "model": "Samsung Galaxy A7 (2018)",
+                        "model": "Samsung Galaxy A7",
                         "price": "23990",
                         "brand": "Samsung",
                         "processor": "Samsung Exynos 7 Octa 7885",
-                        "display": "6.0 inches (15.24 cm)",
+                        "display": "6.0 inches",
                         "storage": "64GB",
                         "camera": "Triple (24MP + 8MP + 5MP)",
                         "battery": "3300 mAh",
@@ -26,7 +26,7 @@ class App extends Component {
                         "display_type": "Super AMOLED",
                         "resolution": "1080x2220 pixels",
                         "aspect_ratio": "18.5:9",
-                        "screen_size": "6.0 inches (15.24 cm)",
+                        "screen_size": "6.0 inches",
                         "pixel_density": "411 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -89,7 +89,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/samsung_galaxy_a7_(2018).jpg"
                 },
                 {
                     "summary": {
@@ -97,7 +98,7 @@ class App extends Component {
                         "price": "16490",
                         "brand": "Samsung",
                         "processor": "Qualcomm SDM450 Snapdragon 450",
-                        "display": "6.0 inches (15.24 cm)",
+                        "display": "6.0 inches",
                         "storage": "64GB",
                         "camera": "Dual (16MP + 5MP)",
                         "battery": "3500 mAh",
@@ -107,7 +108,7 @@ class App extends Component {
                         "resolution": "720 x 1480 pixels",
                         "aspect_ratio": "18.5:9",
                         "display_type": "Super AMOLED",
-                        "screen_size": "6.0 inches (15.24 cm)",
+                        "screen_size": "6.0 inches",
                         "pixel_density": "274 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -171,7 +172,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/samsung_galaxy_j8.jpg"
                 },
                 {
                     "summary": {
@@ -254,7 +256,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/oppo_a5.jpg"
                 },
                 {
                     "summary": {
@@ -262,7 +265,7 @@ class App extends Component {
                         "price": "5999",
                         "brand": "Xiaomi",
                         "processor": "Mediatek Helio A22",
-                        "display": "5.45 inches (13.84 cm)",
+                        "display": "5.45 inches",
                         "storage": "16GB",
                         "camera": "13MP",
                         "battery": "3000 mAh",
@@ -272,7 +275,7 @@ class App extends Component {
                         "resolution": "720x1440 pixels",
                         "aspect_ratio": "18:9",
                         "display_type": "IPS LCD",
-                        "screen_size": "5.45 inches (13.84 cm)",
+                        "screen_size": "5.45 inches",
                         "pixel_density": "295 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -336,7 +339,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/xiaomi_redmi_6A.jpg"
                 },
                 {
                     "summary": {
@@ -344,7 +348,7 @@ class App extends Component {
                         "price": "13368",
                         "brand": "Xiaomi",
                         "processor": "Qualcomm SDM636 Snapdragon 636",
-                        "display": "5.8 inches (14.73 cm)",
+                        "display": "5.8 inches",
                         "storage": "64GB",
                         "camera_dual": "(16MP + 5MP)",
                         "battery": "3060 mAh",
@@ -354,7 +358,7 @@ class App extends Component {
                         "resolution": "1080x2280 pixels",
                         "aspect_ratio": "19:9",
                         "display_type": "IPS LCD",
-                        "screen_size": "5.8 inches (14.73 cm)",
+                        "screen_size": "5.8 inches",
                         "pixel_density": "432 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -419,7 +423,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/xiaomi_redmi_note_5_pro.jpg"
                 },
                 {
                     "summary": {
@@ -427,7 +432,7 @@ class App extends Component {
                         "price": "33990",
                         "processor": "Apple A10 Fusion",
                         "brand": "Apple",
-                        "display": "4.7 inches (11.94 cm)",
+                        "display": "4.7 inches",
                         "storage": "32GB",
                         "camera": "12MP",
                         "battery": "1960 mAh",
@@ -437,7 +442,7 @@ class App extends Component {
                         "resolution": "750x1334 pixels",
                         "aspect_ratio": "16:9",
                         "display_type": "IPS LCD",
-                        "screen_size": "4.7 inches (11.94 cm)",
+                        "screen_size": "4.7 inches",
                         "pixel_density": "326 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -504,7 +509,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "No"
-                    }
+                    },
+                    "imagePath": "../assets/apple_iPhone_7.jpg"
                 },
                 {
                     "summary": {
@@ -587,7 +593,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/oppo_f9.jpg"
                 },
                 {
                     "summary": {
@@ -595,7 +602,7 @@ class App extends Component {
                         "price": "23149",
                         "processor": "Qualcomm Snapdragon 660",
                         "brand": "Vivo",
-                        "display": "6.2 inches (15.75 cm)",
+                        "display": "6.2 inches",
                         "storage": "64GB",
                         "camera_dual": "(16MP + 5MP)",
                         "battery": "5000 mAh",
@@ -605,7 +612,7 @@ class App extends Component {
                         "resolution": "1080x1920 pixels",
                         "aspect_ratio": "19:9",
                         "display_type": "IPS LCD",
-                        "screen_size": "6.2 inches (15.75 cm)",
+                        "screen_size": "6.2 inches",
                         "pixel_density": "402 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -669,7 +676,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/vivo_v11_pro.jpg"
                 },
                 {
                     "summary": {
@@ -753,7 +761,8 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/motorola_one_power.jpg"
                 },
                 {
                     "summary": {
@@ -761,7 +770,7 @@ class App extends Component {
                         "price": "20999",
                         "brand": "Xiaomi",
                         "processor": "Qualcomm Snapdragon 845",
-                        "display": "6.28 inches (15.95 cm)",
+                        "display": "6.28 inches",
                         "storage": "64GB",
                         "camera": "Dual (16MP + 20MP (16MP effective) )",
                         "battery": "3300 mAh",
@@ -771,7 +780,7 @@ class App extends Component {
                         "display_type": "Optic AMOLED",
                         "resolution": "1080x2280 pixels",
                         "aspect_ratio": "19:9",
-                        "screen_size": "6.28 inches (15.95 cm)",
+                        "screen_size": "6.28 inches",
                         "pixel_density": "402 pixels per inch (ppi)",
                         "touchscreen_type": "Capacitive",
                         "color_reproduction": "16M Colors",
@@ -836,12 +845,15 @@ class App extends Component {
                     "sound": {
                         "speaker": "Yes",
                         "audio_jack": "3.5mm"
-                    }
+                    },
+                    "imagePath": "../assets/xiaomi_poco_f1.jpg"
                 }
             ],
-            filterProductList : []
+            filterProductList : []  // state variable to store fltered product so update in jsx will occur
         }
     };
+    // update the product list to show filtered list
+    // fallback to original product list if filtered list is empty
     updateProductList(products) {
         if (products.length == 0) {
             products = this.state.products;
@@ -850,12 +862,14 @@ class App extends Component {
             filterProductList: products,
         });
     }
+    // filter product list with entered search string
     filterWithSearch(text) {
         if (text) {
-            let products = this.state.filterProductList.length > 0 ? this.state.filterProductList : this.state.products;
+            let products = this.state.products;
             this.availableLists = [];
+            let textArray = text.split(' ');
             products.forEach((p) => {
-                this.checkOccurence(p, text, p)
+                this.checkOccurence(p, textArray, p)
             })
             let unique_array = this.availableLists.filter(function(elem, index, self) {
                 return index == self.indexOf(elem);
@@ -866,17 +880,27 @@ class App extends Component {
         }
         this.updateProductList(this.availableLists);
     }
-    checkOccurence(element, targetValue, parentElem) {
-        for (let k in element) {
-            if (typeof element[k] == 'object') {
-                this.checkOccurence(element[k], targetValue, parentElem)
-            } else
-            if (element[k].indexOf(targetValue)>-1) {
-                this.availableLists.push(parentElem);
-                return;
+    // Recurrsion to search random search in nested object level in product list
+    // & store the filtered product in global variable
+    checkOccurence(element, textArray, parentElem, stringAvailable) {
+        stringAvailable = stringAvailable ? stringAvailable : false;
+        textArray.forEach((text, index) => {
+            for (let k in element) {
+                if (typeof element[k] == 'object') {
+                    this.checkOccurence(element[k], textArray, parentElem, stringAvailable)
+                } else {
+                    if (((element[k].toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
+                        stringAvailable = true;
+                        if (index == (textArray.length-1))  {
+                            this.availableLists.push(parentElem);
+                            return;
+                        }
+                    }
+                }
             }
-        }
+        })
     }
+    // update the search string in component state
     updateState(evt) {
         this.setState({
             searchText: evt.target.value,
@@ -886,7 +910,6 @@ class App extends Component {
         let products = this.state.filterProductList.length > 0 ? this.state.filterProductList : this.state.products;
         return (
             <div id="container">
-            {/* <div>Showing {products.length}</div> */}
                 <Header onSearch={this.filterWithSearch}></Header>
                 <Itembody products={products} onFilter={this.updateProductList}></Itembody>
             </div>

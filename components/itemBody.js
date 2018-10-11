@@ -2,33 +2,20 @@ import React, { Component, Fragment } from 'react';
 import Filter from './filter';
 
 class Itembody extends Component {
-    constructor() {
-        super();
-    };
+    // Create array of dynamic jsx for product details
     getProductDetail() {
         let products = this.props.products;
         return products.map((data, index)=>
-            <div key={index}>
-                <div className="productImage">
-                    <img src=""></img>
+            <div key={index} className="product-detail">
+                <div className="product-image">
+                    <img src={data.imagePath}></img>
                 </div>
-                <div className="productSpecs">
-                    <div className="leftColumn">
-                        <ul>
-                            <li>{data.summary.model}</li>
-                            <li>{data.summary.display}</li>
-                            <li>{data.summary.storage}</li>
-                            <li>{data.summary.camera}</li>
-                        </ul>
+                <div className="product-specs">
+                    <div className="product-toprow">
+                        <p>{data.summary.model}</p>
+                        <p>Rs. {data.summary.price}</p>
                     </div>
-                    <div className="rightColumn">
-                        <ul>
-                            <li>{data.summary.battery}</li>
-                            <li>{data.summary.ram}</li>
-                            {/* <li>{data.summary.storage}</li> */}
-                            {/* <li>{data.summary.camera}</li> */}
-                        </ul>
-                    </div>
+                    <div className="product-bottomrow"><p>{data.summary.ram}, {data.summary.storage}, {data.summary.display}, {data.summary.processor}, {data.general.colors}</p></div>
                 </div>
             </div>
         );
@@ -37,7 +24,7 @@ class Itembody extends Component {
         return (
             <div className="products">
                 <Filter products={this.props.products} onFilter={this.props.onFilter}></Filter>
-                <div className="productDetail">
+                <div className="product-body">
                     {this.getProductDetail()}
                 </div>
             </div>

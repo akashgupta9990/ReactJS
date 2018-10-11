@@ -4,13 +4,18 @@ class Header extends Component {
     constructor() {
         super();
         this.state = {
-            searchText: ""
+            searchText: "" // Search field model value
         }
     };
+    // Update the state value of search model
+    // show all product list if search field is empty
     updateState(evt) {
         this.setState({
             searchText: evt.target.value,
         });
+        if (!evt.target.value) {
+            this.props.onSearch();
+        }
     }
     render() {
         return (

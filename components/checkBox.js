@@ -40,15 +40,15 @@ class Checkbox extends Component {
     generateOption() {
         let options = this.props.options;
         return options.map((data, index)=>
-            <span key={data.value}>
-                <label>{data.label}</label>
+            <label key={data.value}>
                 <input type="checkbox" name={data.name} value={data.value} onChange={evt => this.filterResult(evt, data)}></input>
-            </span>
+                {data.label}
+            </label>
         );
     }
     render() {
         return (
-            <div className="">
+            <div className="checkbox">
                 {this.generateOption()}
             </div>
         );
