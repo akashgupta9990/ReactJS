@@ -6,7 +6,7 @@ class App extends Component {
         super();
         this.availableLists = []; // global variable to store filtered products
         this.updateProductList = this.updateProductList.bind(this);
-        this.filterWithSearch = this.filterWithSearch.bind(this);
+        this.filterList = this.filterList.bind(this);
         this.updateSearchText = this.updateSearchText.bind(this);
         this.state = {
             products: [
@@ -860,7 +860,7 @@ class App extends Component {
             searchText: evt.target.value,
         });
         if (!evt.target.value) {
-            this.filterWithSearch();
+            this.filterList();
         }
     }
     // update the product list to show filtered list
@@ -874,11 +874,16 @@ class App extends Component {
         });
     }
     // filter product list with entered search string
-    filterWithSearch(text) {
-        if (text) {
+    filterList(data) {
+        if (data) {
             let products = this.state.products;
             this.availableLists = [];
-            let textArray = text.split(' ');
+            let textArray;
+            if ( typeof data == 'string') {
+                textArray = data.split(' ');
+            } else {
+                textArray = data;
+            }
             products.forEach((p) => {
                 this.checkOccurence(p, textArray, p)
             })
@@ -896,18 +901,47 @@ class App extends Component {
     checkOccurence(element, textArray, parentElem, stringAvailable) {
         stringAvailable = stringAvailable ? stringAvailable : false;
         textArray.forEach((text, index) => {
-            for (let k in element) {
-                if (typeof element[k] == 'object') {
-                    this.checkOccurence(element[k], textArray, parentElem, stringAvailable)
-                } else {
-                    if (((element[k].toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
-                        stringAvailable = true;
-                        if (index == (textArray.length-1))  {
-                            this.availableLists.push(parentElem);
-                            return;
+            if (typeof text == 'string') {
+                for (let k in element) {
+                    if (typeof element[k] == 'object') {
+                        this.checkOccurence(element[k], textArray, parentElem, stringAvailable)
+                    } else {
+                        if (((element[k].toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
+                            stringAvailable = true;
+                            if (index == (textArray.length-1))  {
+                                this.availableLists.push(parentElem);
+                                return;
+                            }
                         }
                     }
                 }
+            } else {
+                let key;
+                let filters = text.value.split('-')
+                    switch(text.type) {
+                        case 'screen':
+                            key = parseFloat(element.display.screen_size);
+                            break;
+                        case 'price':
+                            key = parseFloat(element.summary.price);
+                            break;
+                        case 'ram':
+                            key = parseFloat(element.summary.ram);
+                            break;
+                        case 'os':
+                            key = element.software.operating_system.replace(/[^0-9,.]/g,'')
+                            break;
+                        case 'brand':
+                            key = element.summary.brand.toLowerCase()
+                            break;
+                    }
+                    if (filters.length == 1) {
+                        if (key.indexOf(filters[0].toLowerCase()) > -1) this.availableLists.push (element)
+                    } else {
+                        if ((key >= parseFloat(filters[0])) && (key <= (parseFloat(filters[1])))) {
+                            this.availableLists.push(element);
+                        }
+                    }
             }
         })
     }
@@ -915,8 +949,8 @@ class App extends Component {
         let products = this.state.filterProductList.length > 0 ? this.state.filterProductList : this.state.products;
         return (
             <div id="container">
-                <Header onSearch={this.filterWithSearch} updateSearchText={this.updateSearchText} searchText={this.state.searchText}></Header>
-                <Itembody products={products} allProducts={this.state.products} onFilter={this.updateProductList}></Itembody>
+                <Header onSearch={this.filterList} updateSearchText={this.updateSearchText} searchText={this.state.searchText}></Header>
+                <Itembody products={products} allProducts={this.state.products} onFilter={this.filterList}></Itembody>
             </div>
         );
     }
