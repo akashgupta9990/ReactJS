@@ -23,7 +23,7 @@ class Itembody extends Component {
     render() {
         return (
             <div className="products">
-                <Filter products={this.props.products} allProducts={this.props.allProducts} onFilter={this.props.onFilter}></Filter>
+                <Filter onFilter={this.props.onFilter}></Filter>
                 <div className="product-body">
                     {this.getProductDetail()}
                 </div>

@@ -849,8 +849,9 @@ class App extends Component {
                     "imagePath": "../assets/xiaomi_poco_f1.jpg"
                 }
             ],
-            filterProductList : [],  // state variable to store fltered product so update in jsx will occur
-            searchText: "" // Search field model value
+            filterList : [],  // state variable to store fltered product so update in jsx will occur
+            searchText: "", // Search field model value
+            searchList: []
         }
     };
     // Update the state value of search model
@@ -858,10 +859,11 @@ class App extends Component {
     updateSearchText(evt) {
         this.setState({
             searchText: evt.target.value,
-        });
-        if (!evt.target.value) {
-            this.filterList();
-        }
+        }, function(evt) {
+            if (!this.state.searchText) {
+                this.filterList();
+            }
+        }.bind(this));
     }
     // update the product list to show filtered list
     // fallback to original product list if filtered list is empty
@@ -870,18 +872,20 @@ class App extends Component {
             products = this.state.products;
         }
         this.setState({
-            filterProductList: products,
+            filterList: products,
         });
     }
     // filter product list with entered search string
-    filterList(data) {
+    filterList(data, fromSearch) {
+        data = data && data.length > 0 ? data : this.state.searchText;
         if (data) {
-            let products = this.state.products;
+            let products  = this.state.products;
             this.availableLists = [];
             let textArray;
             if ( typeof data == 'string') {
                 textArray = data.split(' ');
             } else {
+                products = this.state.searchList.length > 0 ? this.state.searchList : this.state.products;
                 textArray = data;
             }
             products.forEach((p) => {
@@ -894,25 +898,25 @@ class App extends Component {
         } else {
             this.availableLists = [];
         }
+        fromSearch ? this.state.searchList = this.availableLists : "";
         this.updateProductList(this.availableLists);
     }
-    // Recurrsion to search random search in nested object level in product list
+    // Recurrsion to search products in nested object level in product list
     // & store the filtered product in global variable
     checkOccurence(element, textArray, parentElem, stringAvailable) {
         stringAvailable = stringAvailable ? stringAvailable : false;
         textArray.forEach((text, index) => {
             if (typeof text == 'string') {
-                for (let k in element) {
-                    if (typeof element[k] == 'object') {
-                        this.checkOccurence(element[k], textArray, parentElem, stringAvailable)
-                    } else {
-                        if (((element[k].toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
-                            stringAvailable = true;
-                            if (index == (textArray.length-1))  {
-                                this.availableLists.push(parentElem);
-                                return;
-                            }
-                        }
+                let e = JSON.stringify(element);
+                if (((e.toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
+                    stringAvailable = true;
+                    if (index == (textArray.length-1))  {
+                        this.availableLists.push(parentElem);
+                        return;
+                    }
+                } else {
+                    if (index > 0 && stringAvailable){
+                        stringAvailable = false
                     }
                 }
             } else {
@@ -926,7 +930,7 @@ class App extends Component {
                             key = parseFloat(element.summary.price);
                             break;
                         case 'ram':
-                            key = parseFloat(element.summary.ram);
+                            key = element.summary.ram.toLowerCase();
                             break;
                         case 'os':
                             key = element.software.operating_system.replace(/[^0-9,.]/g,'')
@@ -946,11 +950,11 @@ class App extends Component {
         })
     }
     render() {
-        let products = this.state.filterProductList.length > 0 ? this.state.filterProductList : this.state.products;
+        let products = this.state.filterList.length > 0 ? this.state.filterList : this.state.products;
         return (
             <div id="container">
                 <Header onSearch={this.filterList} updateSearchText={this.updateSearchText} searchText={this.state.searchText}></Header>
-                <Itembody products={products} allProducts={this.state.products} onFilter={this.filterList}></Itembody>
+                <Itembody products={products} onFilter={this.filterList}></Itembody>
             </div>
         );
     }

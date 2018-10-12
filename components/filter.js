@@ -11,7 +11,7 @@ class Filter extends Component {
                 { name: "price", value: '5000-9999', label: "5000-9999" },
                 { name: "price", value: '10000-19999', label: "10000-19999" },
                 { name: "price", value: '20000-29999', label: "20000-29999" },
-                { name: "price", value: '30000', label: "30000 & above" }
+                { name: "price", value: '30000-999999', label: "30000 & above" }
             ],
             brand: [
                 { name: "brand", value: 'motorola', label: "Motorola" },
@@ -19,7 +19,7 @@ class Filter extends Component {
                 { name: "brand", value: 'vivo', label: "Vivo" },
                 { name: "brand", value: 'apple', label: "Apple" },
                 { name: "brand", value: 'sony', label: "Sony" },
-                { name: "brand", value: 'realme', label: "Realme" }
+                { name: "brand", value: 'xiaomi', label: "xiaomi" }
             ],
             screensize: [
                 { name: "screen", value: "0-4.0", label: '4.0"' },
@@ -44,7 +44,8 @@ class Filter extends Component {
         }
         this.updateFilters = this.updateFilters.bind(this);
     };
-    updateFilters(data, isSelected) {
+    updateFilters(evt, data) {
+        let isSelected = evt.target.checked;
         if (isSelected) {
             this.filters.push({type: data.name, value:data.value});
         } else {
