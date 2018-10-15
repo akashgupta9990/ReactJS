@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 class Checkbox extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.generateOption = this.generateOption.bind(this);
     };
     generateOption() {

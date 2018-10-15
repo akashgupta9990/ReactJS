@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Header from './components/header';
 import Itembody from './components/itemBody';
 class App extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.availableLists = []; // global variable to store filtered products
         this.updateProductList = this.updateProductList.bind(this);
         this.filterList = this.filterList.bind(this);
         this.updateSearchText = this.updateSearchText.bind(this);
+        this.generateFilterList = this.generateFilterList.bind(this);
         this.state = {
             products: [
                 {
@@ -478,7 +479,7 @@ class App extends Component {
                         "removable_battery": "No",
                         "type": "Li-Po",
                         "talk_time": "Upto 14 hrs (3G)",
-                        "wireless_charging":"No",
+                        "wireless_charging": "No",
                         "capacity": "1960 mAh",
                         "fast_charging": "No"
                     },
@@ -849,17 +850,35 @@ class App extends Component {
                     "imagePath": "../assets/xiaomi_poco_f1.jpg"
                 }
             ],
-            filterList : [],  // state variable to store fltered product so update in jsx will occur
+            filterList: [],  // state variable to store fltered product so update in jsx will occur
             searchText: "", // Search field model value
             searchList: []
         }
+        this.lists = [];
+        this.filters = [];
     };
+    generateFilterList(evt, data) {
+        let isSelected = evt.target.checked;
+        if (isSelected) {
+            let index = this.filters.findIndex(x => x.type == data.name)
+            if (index > -1) {
+                this.filters[index].value = this.filters[index].value + "-" + data.value;
+            } else {
+                this.filters.push({ type: data.name, value: data.value });
+            }
+        } else {
+            this.filters = this.filters.filter(function (a) {
+                return a.value != data.value
+            })
+        }
+        this.filterList(this.filters, undefined, data);
+    }
     // Update the state value of search model
     // show all product list if search field is empty
     updateSearchText(evt) {
         this.setState({
             searchText: evt.target.value,
-        }, function(evt) {
+        }, function (evt) {
             if (!this.state.searchText) {
                 this.filterList();
             }
@@ -876,22 +895,27 @@ class App extends Component {
         });
     }
     // filter product list with entered search string
-    filterList(data, fromSearch) {
+    filterList(data, fromSearch, rawData) {
         data = data && data.length > 0 ? data : this.state.searchText;
         if (data) {
-            let products  = this.state.products;
+            let products = this.state.products;
             this.availableLists = [];
             let textArray;
-            if ( typeof data == 'string') {
+            if (typeof data == 'string') {
                 textArray = data.split(' ');
             } else {
                 products = this.state.searchList.length > 0 ? this.state.searchList : this.state.products;
                 textArray = data;
             }
-            products.forEach((p) => {
-                this.checkOccurence(p, textArray, p)
+            this.lists = [];
+            textArray.forEach((t, index) => {
+                if (index > 0) {
+                    products = this.lists.length > 0 ? this.lists : products;
+                    this.lists = [];
+                }
+                this.checkOccurence(t, products, this.lists);
             })
-            let unique_array = this.availableLists.filter(function(elem, index, self) {
+            let unique_array = this.lists.filter(function (elem, index, self) {
                 return index == self.indexOf(elem);
             });
             this.availableLists = unique_array;
@@ -901,60 +925,113 @@ class App extends Component {
         fromSearch ? this.state.searchList = this.availableLists : "";
         this.updateProductList(this.availableLists);
     }
-    // Recurrsion to search products in nested object level in product list
-    // & store the filtered product in global variable
-    checkOccurence(element, textArray, parentElem, stringAvailable) {
-        stringAvailable = stringAvailable ? stringAvailable : false;
-        textArray.forEach((text, index) => {
+    checkOccurence(text, list, elementArray) {
+        let stringAvailable = false;
+        list.forEach((element, index) => {
             if (typeof text == 'string') {
                 let e = JSON.stringify(element);
-                if (((e.toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
-                    stringAvailable = true;
-                    if (index == (textArray.length-1))  {
-                        this.availableLists.push(parentElem);
-                        return;
+                if (((e.toLowerCase()).indexOf(text.toLowerCase()) > -1)) {
+                    // stringAvailable = true;
+                    // if (index == (textArray.length - 1)) {
+                        this.lists.push(element);
+                        // return;
                     }
-                } else {
-                    if (index > 0 && stringAvailable){
-                        stringAvailable = false
-                    }
-                }
+                // } else {
+                //     if (index > 0 && stringAvailable) {
+                //         stringAvailable = false
+                //     }
+                // }
             } else {
                 let key;
+                let isRange;
                 let filters = text.value.split('-')
-                    switch(text.type) {
-                        case 'screen':
-                            key = parseFloat(element.display.screen_size);
-                            break;
-                        case 'price':
-                            key = parseFloat(element.summary.price);
-                            break;
+                switch (text.type) {
+                    case 'screen':
+                    key = parseFloat(element.display.screen_size);
+                        isRange = true;
+                        break;
+                    case 'price':
+                    key = parseFloat(element.summary.price);
+                        isRange = true;
+                        break;
                         case 'ram':
-                            key = element.summary.ram.toLowerCase();
-                            break;
-                        case 'os':
-                            key = element.software.operating_system.replace(/[^0-9,.]/g,'')
-                            break;
-                        case 'brand':
-                            key = element.summary.brand.toLowerCase()
-                            break;
-                    }
-                    if (filters.length == 1) {
-                        if (key.indexOf(filters[0].toLowerCase()) > -1) this.availableLists.push (element)
-                    } else {
-                        if ((key >= parseFloat(filters[0])) && (key <= (parseFloat(filters[1])))) {
-                            this.availableLists.push(element);
+                        key = element.summary.ram.toLowerCase();
+                        break;
+                    case 'os':
+                    key = element.software.operating_system.replace(/[^0-9,.]/g, '')
+                        break;
+                    case 'brand':
+                        key = element.summary.brand.toLowerCase()
+                        break;
+                }
+                if (!isRange) {
+                    filters.forEach(f => {
+                        if (key.indexOf(f.toLowerCase()) > -1) {
+                            elementArray.push(element)
                         }
+                    })
+                } else {
+                    if ((key >= parseFloat(filters[0])) && (key <= (parseFloat(filters[1])))) {
+                        elementArray.push(element);
                     }
+                }
             }
         })
     }
+    // Recurrsion to search products in nested object level in product list
+    // & store the filtered product in global variable
+    // checkOccurence(element, textArray, parentElem, stringAvailable) {
+    //     stringAvailable = stringAvailable ? stringAvailable : false;
+    //     textArray.forEach((text, index) => {
+    //         if (typeof text == 'string') {
+    //             let e = JSON.stringify(element);
+    //             if (((e.toLowerCase()).indexOf(text.toLowerCase())>-1) && ((index == 0) || (stringAvailable && index>0))) {
+    //                 stringAvailable = true;
+    //                 if (index == (textArray.length-1))  {
+    //                     this.availableLists.push(parentElem);
+    //                     return;
+    //                 }
+    //             } else {
+    //                 if (index > 0 && stringAvailable){
+    //                     stringAvailable = false
+    //                 }
+    //             }
+    //         } else {
+    //             let key;
+    //             let filters = text.value.split('-')
+    //                 switch(text.type) {
+    //                     case 'screen':
+    //                         key = parseFloat(element.display.screen_size);
+    //                         break;
+    //                     case 'price':
+    //                         key = parseFloat(element.summary.price);
+    //                         break;
+    //                     case 'ram':
+    //                         key = element.summary.ram.toLowerCase();
+    //                         break;
+    //                     case 'os':
+    //                         key = element.software.operating_system.replace(/[^0-9,.]/g,'')
+    //                         break;
+    //                     case 'brand':
+    //                         key = element.summary.brand.toLowerCase()
+    //                         break;
+    //                 }
+    //                 if (filters.length == 1) {
+    //                     if (key.indexOf(filters[0].toLowerCase()) > -1) this.availableLists.push (element)
+    //                 } else {
+    //                     if ((key >= parseFloat(filters[0])) && (key <= (parseFloat(filters[1])))) {
+    //                         this.availableLists.push(element);
+    //                     }
+    //                 }
+    //         }
+    //     })
+    // }
     render() {
         let products = this.state.filterList.length > 0 ? this.state.filterList : this.state.products;
         return (
             <div id="container">
                 <Header onSearch={this.filterList} updateSearchText={this.updateSearchText} searchText={this.state.searchText}></Header>
-                <Itembody products={products} onFilter={this.filterList}></Itembody>
+                <Itembody products={products} onFilter={this.generateFilterList}></Itembody>
             </div>
         );
     }

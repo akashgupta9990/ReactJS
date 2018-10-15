@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import Select from './Select';
 import Checkbox from './Checkbox';
 class Filter extends Component {
-    constructor() {
-        super();
-        this.filters = [];
+    constructor(props) {
+        super(props);
         this.state = {
             price: [
                 { name: "price", value: '0-4999', label: "0-4999" },
@@ -42,19 +41,7 @@ class Filter extends Component {
                 { name: "ram", value: "6gb", label: "6 GB" }
             ]
         }
-        this.updateFilters = this.updateFilters.bind(this);
     };
-    updateFilters(evt, data) {
-        let isSelected = evt.target.checked;
-        if (isSelected) {
-            this.filters.push({type: data.name, value:data.value});
-        } else {
-            this.filters = this.filters.filter(function(a){
-                return a.value != data.value
-            })
-        }
-        this.props.onFilter(this.filters);
-    }
     render() {
         return (
             <div className="filters">
@@ -62,23 +49,23 @@ class Filter extends Component {
                     <label>Filters</label>
                     <div className="filter-option">
                         <label>Price</label>
-                        <Checkbox options={this.state.price} updateFilters={this.updateFilters}></Checkbox>
+                        <Checkbox options={this.state.price} updateFilters={this.props.onFilter}></Checkbox>
                     </div>
                     <div className="filter-option">
                         <label>RAM</label>
-                        <Checkbox options={this.state.ram} updateFilters={this.updateFilters}></Checkbox>
+                        <Checkbox options={this.state.ram} updateFilters={this.props.onFilter}></Checkbox>
                     </div>
                     <div className="filter-option">
                         <label>Brand</label>
-                        <Checkbox options={this.state.brand} updateFilters={this.updateFilters}></Checkbox>
+                        <Checkbox options={this.state.brand} updateFilters={this.props.onFilter}></Checkbox>
                     </div>
                     <div className="filter-option">
                         <label>Screen Size</label>
-                        <Checkbox options={this.state.screensize} updateFilters={this.updateFilters}></Checkbox>
+                        <Checkbox options={this.state.screensize} updateFilters={this.props.onFilter}></Checkbox>
                     </div>
                     <div className="filter-option">
                         <label>OS</label>
-                        <Checkbox options={this.state.os} updateFilters={this.updateFilters}></Checkbox>
+                        <Checkbox options={this.state.os} updateFilters={this.props.onFilter}></Checkbox>
                     </div>
                 </div>
             </div>
