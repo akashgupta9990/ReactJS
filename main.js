@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.js';
+import MobileController from './screens/controllers/mobile-controller.jsx';
+import mobileStore from './screens/store/mobile-store.js';
+import mobileAction from './screens/actions/mobile-action.js';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<MobileController store={mobileStore} action={mobileAction}/>, document.getElementById('app'));

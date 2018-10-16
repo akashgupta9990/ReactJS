@@ -1,4 +1,4 @@
-(MockData = function () {
+var MockData = (function () {
     let mobileJson = [{
         "summary": {
             "model": "Samsung Galaxy A7",
@@ -866,7 +866,7 @@
         ]
     };
     return {
-        getMobieJSON: function () {
+        getMobileJSON: function () {
             return mobileJson;
         },
         setMobileJSON: function (newMobileJSON) {
@@ -877,10 +877,10 @@
                 console.error('Invalid Mobile JSON data')
             }
         },
-        getFilterListData: function () {
+        getFilterList: function () {
             return filterListData;
         },
-        setFilterListData: function (newFilterListData) {
+        setFilterList: function (newFilterListData) {
             try {
                 newFilterListData = JSON.parse(JSON.stringify(newFilterListData))
                 filterListData = newFilterListData;
@@ -890,3 +890,5 @@
         }
     };
 })();
+
+module.exports = MockData;
