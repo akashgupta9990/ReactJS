@@ -154,9 +154,28 @@ body {
 
 .product-detail {
     width: 210px;
-    height: 270px;
     border: 1px solid #eae2e2;
+    height: 270px;
+}
+
+.product-body-filters-label, .product-detail {
     margin: 9px;
+}
+
+.product-body-filters-label {
+    text-transform: capitalize;
+    font-size: 14px;
+}
+
+.filter-title {
+    color: #999aa5;
+    margin-right: 40px;
+}
+
+.filter-title label {
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .product-body, .product-detail {
@@ -194,4 +213,16 @@ body {
     font-size: 12px;
     color: #afafaf;
     padding: 5px;
+}
+
+.footer {
+    background: #4c5099;
+    height: 30px;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+    padding-top: 5px;
+    color: #8a8fc4;
 }

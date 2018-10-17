@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Itembody from '../view/listItem.jsx';
 import Header from '../view/header.jsx';
+import Footer from '../view/footer.jsx';
 
 class MobileController extends Component {
     constructor(props) {
@@ -10,13 +11,12 @@ class MobileController extends Component {
         this.state = {
             viewList: this.getMobileStore().getMobileJSON().mobileJSON  // to store search text box value
         }
-        // this.availableLists = [];
-        // this.lists = [];
-        // this.filters = [];
     }
+    // Returns class props store value
     getMobileStore(){
         return this.props.store;
     }
+    // update the JSX dom
     handleViewStateChanged() {
         let viewList = this.getMobileStore().getViewList();
         let products = viewList.length > 0 ? viewList : this.getMobileStore().getMobileJSON().mobileJSON;
@@ -24,20 +24,20 @@ class MobileController extends Component {
             viewList: products,
         });
     }
+    // Add an eventlistener on change event to update dom
     componentDidMount() {
         this.getMobileStore().on('change', this.handleViewStateChanged);
     }
-
+    // Remove an eventlistener on change event
     componentWillUnmount() {
         this.getMobileStore().on('change', this.handleViewStateChanged);
     }
-    generateFilterList() {}
     render() {
         return (
             <div id="container">
                 <Header></Header>
-                {/* onSearch={this.filterList} updateSearchText={this.updateSearchText} */}
                 <Itembody products={this.state.viewList}></Itembody>
+                <Footer></Footer>
             </div>
         );
     }

@@ -3,9 +3,11 @@ import MobileStore from '../store/mobile-store.js';
 import MobileAction from '../actions/mobile-action.js';
 
 class Header extends Component {
+    // Wrapper to dispatch event from mobileAction for input value update
     changeSearchValue(evt) {
-        MobileStore.setSearchValue(evt.target.value)
+        MobileAction.resetSearch(evt.target.value)
     }
+    // Wrapper to dispatch event from mobileAction for search click
     search() {
         MobileAction.searchList();
     }
